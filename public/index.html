@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>PowerTrack - Strength Training Tracking App</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <header>
+    <h1>PowerTrack</h1>
+  </header>
+
+  <main>
+    <section id="compare-goals">
+      <h2>Compare to your Goals</h2>
+      <div class="goals-container">
+        <div class="goals-grid"></div>
+        <div class="goals-input">
+          <label for="weekly-goal">Set your goals:</label>
+          <input type="number" id="weekly-goal" name="weekly-goal" min="1" max="7" value="3">
+        </div>
+        <div class="goals-message"></div>
+      </div>
+    </section>
+
+    <section id="record-workout">
+      <h2>Record your today's work</h2>
+      <form id="workout-form">
+        <div class="form-group">
+          <button type="submit">Save</button>
+          <button type="button" id="clear-form-btn" class="delete-button">Delete</button>
+        </div>
+        <div class="form-group">
+          <label for="theme">Theme:</label>
+          <input type="text" id="theme" name="theme" required>
+        </div>
+        <div class="form-group">
+          <label for="category">Category:</label>
+          <select id="category" name="category" required>
+            <option value="">Select a category</option>
+            <option value="chest">Chest</option>
+            <option value="back">Back</option>
+            <option value="legs">Legs</option>
+            <option value="arms">Arms</option>
+            <option value="shoulders">Shoulders</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label for="date">Date:</label>
+          <input type="date" id="date" name="date" required>
+        </div>
+        <div class="exercise-list">
+          <div class="exercise-row">
+            <input type="text" name="exercise" placeholder="Exercise" required>
+            <input type="number" name="sets" placeholder="Sets" required>
+            <input type="number" name="reps" placeholder="Reps" required>
+            <input type="number" name="weight" placeholder="Weight" required>
+          </div>
+        </div>
+        <button type="button" id="add-exercise-btn">+</button>
+        <div class="form-group">
+          <label for="notes">Notes:</label>
+          <textarea id="notes" name="notes"></textarea>
+        </div>
+      </form>
+    </section>
+
+    <section id="search-workouts">
+      <h2>Search your training records</h2>
+      <div class="date-inputs">
+        <input type="date" id="search-date" placeholder="Select date">
+        <button type="button" id="search-button">Search</button>
+      </div>
+    </section>
+
+    <section id="workout-history">
+      <h2>Workout History</h2>
+      <div class="workout-records"></div>
+    </section>
+  </main>
+
+  <script src="app.js"></script>
+</body>
+</html>
