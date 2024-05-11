@@ -1,4 +1,4 @@
-// 获取页面元素
+// Get page elements
 const workoutForm = document.getElementById('workout-form');
 const addExerciseBtn = document.getElementById('add-exercise-btn');
 const exerciseList = document.querySelector('.exercise-list');
@@ -10,10 +10,10 @@ const goalsGrid = document.querySelector('.goals-grid');
 const weeklyGoalInput = document.getElementById('weekly-goal');
 const goalsMessage = document.querySelector('.goals-message');
 
-// 训练数据
+// training data array
 let workouts = [];
 
-// 动态添加练习行
+// Dynamically add training item rows
 function addExerciseRow() {
   const exerciseRow = document.createElement('div');
   exerciseRow.classList.add('exercise-row');
@@ -21,23 +21,25 @@ function addExerciseRow() {
     <input type="text" name="exercise" placeholder="Exercise" required>
     <input type="number" name="sets" placeholder="Sets" required>
     <input type="number" name="reps" placeholder="Reps" required>
-    <input type="number" name="weight" placeholder="Weight" required>
+    <input type="number" name="weight" placeholder="Weight (kg)" required>
   `;
   exerciseList.appendChild(exerciseRow);
 }
 
-// 渲染目标比较
+// Render target comparison section
 function renderGoalsComparison() {
   const today = new Date();
   let goalsGridHtml = '';
   let completedDays = 0;
 
+  // Traverse the past 7 days
   for (let i = 6; i >= 0; i--) {
     const date = new Date(today);
     date.setDate(today.getDate() - i);
     const formattedDate = `${date.getFullYear()}-${String(date.getMonth() + 1).padStart(2, '0')}-${String(date.getDate()).padStart(2, '0')}`;
     const isWorkoutDay = workouts.some(workout => workout.date === formattedDate);
 
+    // Style grid items based on whether training is complete
     if (isWorkoutDay) {
       completedDays++;
       goalsGridHtml += '<div class="goal-day completed"></div>';
@@ -49,6 +51,7 @@ function renderGoalsComparison() {
   goalsGrid.innerHTML = goalsGridHtml;
 
   const weeklyGoal = parseInt(weeklyGoalInput.value);
+  // Display corresponding messages based on the number of training days completed
   if (completedDays >= weeklyGoal) {
     goalsMessage.textContent = 'Congratulations! You reached your weekly goal!';
   } else {
@@ -56,13 +59,15 @@ function renderGoalsComparison() {
   }
 }
 
-// 渲染训练记录
+// Rendering training records
 function renderWorkoutRecords(workoutsToRender) {
   let workoutRecordsHtml = '';
 
+  // Loop through the training records to be rendered
   workoutsToRender.forEach(workout => {
     let exercisesHtml = '';
 
+    // Generate HTML for each training item
     workout.exercises.forEach(exercise => {
       exercisesHtml += `
         <div>
@@ -74,6 +79,7 @@ function renderWorkoutRecords(workoutsToRender) {
       `;
     });
 
+    // Generate complete training record 
     workoutRecordsHtml += `
       <div class="workout-record">
         <p>Date: ${workout.date}</p>
@@ -89,7 +95,7 @@ function renderWorkoutRecords(workoutsToRender) {
   workoutRecords.innerHTML = workoutRecordsHtml;
 }
 
-// 清空表单数据
+// Clear data
 function clearForm() {
   workoutForm.reset();
   exerciseList.innerHTML = `
@@ -97,12 +103,12 @@ function clearForm() {
       <input type="text" name="exercise" placeholder="Exercise" required>
       <input type="number" name="sets" placeholder="Sets" required>
       <input type="number" name="reps" placeholder="Reps" required>
-      <input type="number" name="weight" placeholder="Weight" required>
+      <input type="number" name="weight" placeholder="Weight (kg)" required>
     </div>
   `;
 }
 
-// 删除训练记录
+// Delete training records
 function deleteWorkoutRecord(id) {
   workouts = workouts.filter(workout => workout.id !== id);
   localStorage.setItem('workouts', JSON.stringify(workouts));
@@ -110,7 +116,7 @@ function deleteWorkoutRecord(id) {
   renderWorkoutRecords(workouts);
 }
 
-// 处理表单提交
+// Handle form submission
 function handleFormSubmit(event) {
   event.preventDefault();
 
@@ -119,6 +125,7 @@ function handleFormSubmit(event) {
   const date = document.getElementById('date').value;
   const notes = document.getElementById('notes').value;
 
+  // Get training project data
   const exercises = Array.from(exerciseList.querySelectorAll('.exercise-row')).map(row => {
     const exercise = row.querySelector('input[name="exercise"]').value;
     const sets = row.querySelector('input[name="sets"]').value;
@@ -128,6 +135,7 @@ function handleFormSubmit(event) {
     return { exercise, sets, reps, weight };
   });
 
+  // Create a new training record object
   const newWorkout = {
     id: Date.now().toString(),
     theme,
@@ -145,14 +153,14 @@ function handleFormSubmit(event) {
   renderWorkoutRecords(workouts);
 }
 
-// 处理搜索功能
+// Handle search functionality
 function handleSearch() {
   const selectedDate = searchDate.value;
   const filteredWorkouts = workouts.filter(workout => workout.date === selectedDate);
   renderWorkoutRecords(filteredWorkouts);
 }
 
-// 事件监听器
+// Add event listener
 addExerciseBtn.addEventListener('click', addExerciseRow);
 workoutForm.addEventListener('submit', handleFormSubmit);
 searchButton.addEventListener('click', handleSearch);
@@ -165,12 +173,12 @@ workoutRecords.addEventListener('click', (event) => {
   }
 });
 
-// 初始化
+// Initialize application
 function init() {
   const storedWorkouts = localStorage.getItem('workouts');
   if (storedWorkouts) {
     workouts = JSON.parse(storedWorkouts);
-    // 为没有 id 属性的训练数据添加 id
+    // Add id to training records without id attribute
     workouts.forEach(workout => {
       if (!workout.id) {
         workout.id = Date.now().toString();

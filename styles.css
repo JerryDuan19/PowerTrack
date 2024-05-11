@@ -1,4 +1,4 @@
-/* Reset default styles */
+/* Reset default style */
 * {
   margin: 0;
   padding: 0;
@@ -11,10 +11,12 @@ body {
   background-color: #f4f4f4;
 }
 
+/* Set title font */
 h1, h2, h3, h4, h5, h6 {
   font-family: 'Keania One', cursive;
 }
 
+/* Set header style */
 header {
   background-color: #FF3366;
   color: #fff;
@@ -36,12 +38,14 @@ h2 {
   margin-bottom: 1rem;
 }
 
+/* Set target comparison container style */
 .goals-container {
   display: flex;
   flex-direction: column;
   align-items: center;
 }
 
+/* Set target comparison grid style */
 .goals-grid {
   display: grid;
   grid-template-columns: repeat(7, 1fr);
@@ -49,6 +53,7 @@ h2 {
   margin-bottom: 1rem;
 }
 
+/* Set target day style */
 .goal-day {
   width: 30px;
   height: 30px;
@@ -56,10 +61,12 @@ h2 {
   border-radius: 5px;
 }
 
+/* Set a completed goal day style */
 .goal-day.completed {
   background-color: #4caf50;
 }
 
+/* Set Unfinished Goal Day Style */
 .goal-day.incomplete {
   background-color: #ff4d4d;
 }
@@ -68,6 +75,7 @@ h2 {
   margin-bottom: 1rem;
 }
 
+/* Set target message style */
 .goals-message {
   font-weight: bold;
   text-align: center;
@@ -82,6 +90,7 @@ label {
   margin-bottom: 0.5rem;
 }
 
+/* Set form input box style */
 input[type="text"],
 input[type="date"],
 input[type="number"],
@@ -94,6 +103,7 @@ textarea {
   border-radius: 5px;
 }
 
+/* Set the date format of the date input box */
 input[type="date"]::-webkit-datetime-edit-fields-wrapper {
   display: flex;
 }
@@ -112,6 +122,7 @@ input[type="date"]::-webkit-datetime-edit-year-field:after {
   margin-bottom: 1rem;
 }
 
+/* Set training item row style */
 .exercise-row {
   display: flex;
   gap: 0.5rem;
@@ -122,6 +133,7 @@ input[type="date"]::-webkit-datetime-edit-year-field:after {
   flex: 1;
 }
 
+/* Set button style */
 button {
   padding: 0.5rem 1rem;
   font-size: 1rem;
@@ -132,6 +144,7 @@ button {
   border-radius: 5px;
 }
 
+/* Set delete button style */
 .delete-button {
   background-color: #ff4d4d;
 }
@@ -146,6 +159,7 @@ button {
   flex: 1;
 }
 
+/* Set training record style */
 .workout-record {
   background-color: #fff;
   padding: 1rem;
