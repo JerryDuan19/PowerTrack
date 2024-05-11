@@ -6,13 +6,17 @@
 }
 
 body {
-  font-family: Arial, sans-serif;
+  font-family: 'Open Sans', sans-serif;
   line-height: 1.6;
   background-color: #f4f4f4;
 }
 
+h1, h2, h3, h4, h5, h6 {
+  font-family: 'Keania One', cursive;
+}
+
 header {
-  background-color: #333;
+  background-color: #FF3366;
   color: #fff;
   text-align: center;
   padding: 1rem;
@@ -88,6 +92,20 @@ textarea {
   font-size: 1rem;
   border: 1px solid #ccc;
   border-radius: 5px;
+}
+
+input[type="date"]::-webkit-datetime-edit-fields-wrapper {
+  display: flex;
+}
+
+input[type="date"]::-webkit-datetime-edit-day-field:after,
+input[type="date"]::-webkit-datetime-edit-month-field:after {
+  content: '/';
+  padding: 0 2px;
+}
+
+input[type="date"]::-webkit-datetime-edit-year-field:after {
+  content: '';
 }
 
 .exercise-list {
