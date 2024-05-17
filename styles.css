@@ -53,6 +53,24 @@ h2 {
   margin-bottom: 1rem;
 }
 
+.goals-labels {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 0.5rem;
+  margin-bottom: 1rem;
+  font-size: 0.8rem;
+  text-align: center;
+}
+
+.input-wrapper {
+  display: flex;
+  align-items: center;
+}
+
+.input-label {
+  margin-left: 0.5rem;
+}
+
 /* Set target day style */
 .goal-day {
   width: 30px;

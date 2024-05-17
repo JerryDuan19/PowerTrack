@@ -30,6 +30,7 @@ function addExerciseRow() {
 function renderGoalsComparison() {
   const today = new Date();
   let goalsGridHtml = '';
+  let goalsLabelsHtml = '';
   let completedDays = 0;
 
   // Traverse the past 7 days
@@ -46,11 +47,15 @@ function renderGoalsComparison() {
     } else {
       goalsGridHtml += '<div class="goal-day incomplete"></div>';
     }
+
+    goalsLabelsHtml += `<div>${String(date.getDate()).padStart(2, '0')}/${String(date.getMonth() + 1).padStart(2, '0')}</div>`;
   }
 
   goalsGrid.innerHTML = goalsGridHtml;
+  document.querySelector('.goals-labels').innerHTML = goalsLabelsHtml;
 
   const weeklyGoal = parseInt(weeklyGoalInput.value);
+
   // Display corresponding messages based on the number of training days completed
   if (completedDays >= weeklyGoal) {
     goalsMessage.textContent = 'Congratulations! You reached your weekly goal!';
