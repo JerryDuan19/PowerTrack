@@ -1,4 +1,4 @@
-// Get page elements
+// Get DOM elements
 const workoutForm = document.getElementById('workout-form');
 const addExerciseBtn = document.getElementById('add-exercise-btn');
 const exerciseList = document.querySelector('.exercise-list');
@@ -10,10 +10,10 @@ const goalsGrid = document.querySelector('.goals-grid');
 const weeklyGoalInput = document.getElementById('weekly-goal');
 const goalsMessage = document.querySelector('.goals-message');
 
-// training data array
+// Initialize workouts array
 let workouts = [];
 
-// Dynamically add training item rows
+// Function to add a new exercise row to the form
 function addExerciseRow() {
   const exerciseRow = document.createElement('div');
   exerciseRow.classList.add('exercise-row');
@@ -26,21 +26,19 @@ function addExerciseRow() {
   exerciseList.appendChild(exerciseRow);
 }
 
-// Render target comparison section
+// Function to render the goals comparison section
 function renderGoalsComparison() {
   const today = new Date();
   let goalsGridHtml = '';
   let goalsLabelsHtml = '';
   let completedDays = 0;
 
-  // Traverse the past 7 days
   for (let i = 6; i >= 0; i--) {
     const date = new Date(today);
     date.setDate(today.getDate() - i);
     const formattedDate = `${date.getFullYear()}-${String(date.getMonth() + 1).padStart(2, '0')}-${String(date.getDate()).padStart(2, '0')}`;
     const isWorkoutDay = workouts.some(workout => workout.date === formattedDate);
 
-    // Style grid items based on whether training is complete
     if (isWorkoutDay) {
       completedDays++;
       goalsGridHtml += '<div class="goal-day completed"></div>';
@@ -55,8 +53,6 @@ function renderGoalsComparison() {
   document.querySelector('.goals-labels').innerHTML = goalsLabelsHtml;
 
   const weeklyGoal = parseInt(weeklyGoalInput.value);
-
-  // Display corresponding messages based on the number of training days completed
   if (completedDays >= weeklyGoal) {
     goalsMessage.textContent = 'Congratulations! You reached your weekly goal!';
   } else {
@@ -64,15 +60,13 @@ function renderGoalsComparison() {
   }
 }
 
-// Rendering training records
+// Function to render workout records
 function renderWorkoutRecords(workoutsToRender) {
   let workoutRecordsHtml = '';
 
-  // Loop through the training records to be rendered
   workoutsToRender.forEach(workout => {
     let exercisesHtml = '';
 
-    // Generate HTML for each training item
     workout.exercises.forEach(exercise => {
       exercisesHtml += `
         <div>
@@ -84,7 +78,6 @@ function renderWorkoutRecords(workoutsToRender) {
       `;
     });
 
-    // Generate complete training record 
     workoutRecordsHtml += `
       <div class="workout-record">
         <p>Date: ${workout.date}</p>
@@ -100,7 +93,7 @@ function renderWorkoutRecords(workoutsToRender) {
   workoutRecords.innerHTML = workoutRecordsHtml;
 }
 
-// Clear data
+// Function to clear the workout form
 function clearForm() {
   workoutForm.reset();
   exerciseList.innerHTML = `
@@ -113,15 +106,16 @@ function clearForm() {
   `;
 }
 
-// Delete training records
+// Function to delete a workout record
 function deleteWorkoutRecord(id) {
   workouts = workouts.filter(workout => workout.id !== id);
   localStorage.setItem('workouts', JSON.stringify(workouts));
   renderGoalsComparison();
   renderWorkoutRecords(workouts);
+  generateChart();
 }
 
-// Handle form submission
+// Function to handle workout form submission
 function handleFormSubmit(event) {
   event.preventDefault();
 
@@ -130,7 +124,6 @@ function handleFormSubmit(event) {
   const date = document.getElementById('date').value;
   const notes = document.getElementById('notes').value;
 
-  // Get training project data
   const exercises = Array.from(exerciseList.querySelectorAll('.exercise-row')).map(row => {
     const exercise = row.querySelector('input[name="exercise"]').value;
     const sets = row.querySelector('input[name="sets"]').value;
@@ -140,7 +133,6 @@ function handleFormSubmit(event) {
     return { exercise, sets, reps, weight };
   });
 
-  // Create a new training record object
   const newWorkout = {
     id: Date.now().toString(),
     theme,
@@ -156,16 +148,84 @@ function handleFormSubmit(event) {
   clearForm();
   renderGoalsComparison();
   renderWorkoutRecords(workouts);
+  generateChart();
 }
 
-// Handle search functionality
+// Function to handle workout search
 function handleSearch() {
   const selectedDate = searchDate.value;
   const filteredWorkouts = workouts.filter(workout => workout.date === selectedDate);
   renderWorkoutRecords(filteredWorkouts);
 }
 
-// Add event listener
+// Function to generate the workout chart
+function generateChart() {
+  const ctx = document.getElementById('workoutChart').getContext('2d');
+
+  const categoryData = {};
+  workouts.forEach(workout => {
+    if (categoryData[workout.category]) {
+      categoryData[workout.category]++;
+    } else {
+      categoryData[workout.category] = 1;
+    }
+  });
+
+  const labels = Object.keys(categoryData);
+  const data = Object.values(categoryData);
+
+  if (window.workoutChart instanceof Chart) {
+    window.workoutChart.data.labels = labels;
+    window.workoutChart.data.datasets[0].data = data;
+    window.workoutChart.update();
+  } else {
+    window.workoutChart = new Chart(ctx, {
+      type: 'bar',
+      data: {
+        labels: labels,
+        datasets: [{
+          label: 'Training Sessions by Category',
+          data: data,
+          backgroundColor: 'rgba(75, 192, 192, 0.6)',
+          borderColor: 'rgba(75, 192, 192, 1)',
+          borderWidth: 1
+        }]
+      },
+      options: {
+        scales: {
+          y: {
+            beginAtZero: true,
+            stepSize: 1
+          }
+        }
+      }
+    });
+  }
+}
+
+// Function to load workouts from local storage
+function loadWorkoutsFromStorage() {
+  const storedWorkouts = localStorage.getItem('workouts');
+  if (storedWorkouts) {
+    workouts = JSON.parse(storedWorkouts);
+    workouts.forEach(workout => {
+      if (!workout.id) {
+        workout.id = Date.now().toString();
+      }
+    });
+    localStorage.setItem('workouts', JSON.stringify(workouts));
+  }
+}
+
+// Function to initialize the app
+function initApp() {
+  loadWorkoutsFromStorage();
+  renderGoalsComparison();
+  renderWorkoutRecords(workouts);
+  generateChart();
+}
+
+// Add event listeners
 addExerciseBtn.addEventListener('click', addExerciseRow);
 workoutForm.addEventListener('submit', handleFormSubmit);
 searchButton.addEventListener('click', handleSearch);
@@ -178,22 +238,5 @@ workoutRecords.addEventListener('click', (event) => {
   }
 });
 
-// Initialize application
-function init() {
-  const storedWorkouts = localStorage.getItem('workouts');
-  if (storedWorkouts) {
-    workouts = JSON.parse(storedWorkouts);
-    // Add id to training records without id attribute
-    workouts.forEach(workout => {
-      if (!workout.id) {
-        workout.id = Date.now().toString();
-      }
-    });
-    localStorage.setItem('workouts', JSON.stringify(workouts));
-  }
-
-  renderGoalsComparison();
-  renderWorkoutRecords(workouts);
-}
-
-init();
+// Initialize the app
+initApp();

@@ -2,66 +2,66 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <!-- Set the viewport so that the page displays properly on different devices -->
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>PowerTrack - Strength Training Tracking App</title>
-  <!-- Import style sheet files -->
   <link rel="stylesheet" href="styles.css">
-  <!-- Introducing Keania One and Open Sans fonts from Google Fonts -->
   <link href="https://fonts.googleapis.com/css2?family=Keania+One&family=Open+Sans&display=swap" rel="stylesheet">
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
 <body>
-  <!-- Page header, including application title -->
+  <!-- Header section -->
   <header>
     <h1>PowerTrack</h1>
   </header>
 
+  <!-- Main content section -->
   <main>
-    <!-- comparison section -->
+    <!-- Compare to your Goals function section -->
     <section id="compare-goals">
       <h2>Compare to your Goals</h2>
       <div class="goals-container">
-        <!-- Grid showing training over the past 7 days -->
         <div class="goals-grid"></div>
         <div class="goals-labels"></div>
-        <!-- Input box for setting weekly training goals -->
         <div class="goals-input">
           <label for="weekly-goal">Set your goals:</label>
-          <div class="input-wrapper"></div>
-          <select id="weekly-goal" name="weekly-goal">
-            <option value="0" selected>0</option>
-            <option value="1">1</option>
-            <option value="2">2</option>
-            <option value="3">3</option>
-            <option value="4">4</option>
-            <option value="5">5</option>
-            <option value="6">6</option>
-            <option value="7">7</option>
-          </select>
-          <span class="input-label">days/week</span>
-         </div>
+          <div class="input-wrapper">
+            <select id="weekly-goal" name="weekly-goal">
+              <option value="0">0</option>
+              <option value="1">1</option>
+              <option value="2">2</option>
+              <option value="3" selected>3</option>
+              <option value="4">4</option>
+              <option value="5">5</option>
+              <option value="6">6</option>
+              <option value="7">7</option>
+            </select>
+            <span class="input-label">days/week</span>
+          </div>
         </div>
-       <!-- Message showing goal completion status -->
-       <div class="goals-message"></div>
+        <div class="goals-message"></div>
       </div>
     </section>
 
-    <!-- Record today’s training part -->
+    <!-- Training stats function section -->
+    <section id="stats">
+      <h2>Training Stats</h2>
+      <div class="chart-container">
+        <canvas id="workoutChart"></canvas>
+      </div>
+    </section>
+
+    <!-- Workout recording function section -->
     <section id="record-workout">
       <h2>Record your today's work</h2>
-      <!-- Training record form -->
       <form id="workout-form">
         <div class="form-group">
-          <!-- Save and delete buttons -->
           <button type="submit">Save</button>
           <button type="button" id="clear-form-btn" class="delete-button">Delete</button>
         </div>
-        <!-- Training topic input box -->
         <div class="form-group">
           <label for="theme">Theme:</label>
           <input type="text" id="theme" name="theme" required>
         </div>
-        <!-- Training category selection box -->
         <div class="form-group">
           <label for="category">Category:</label>
           <select id="category" name="category" required>
@@ -73,14 +73,11 @@
             <option value="shoulders">Shoulders</option>
           </select>
         </div>
-        <!-- Training date input box -->
         <div class="form-group">
           <label for="date">Date:</label>
           <input type="date" id="date" name="date" required>
         </div>
-        <!-- List of training items -->
         <div class="exercise-list">
-          <!-- Single training item row -->
           <div class="exercise-row">
             <input type="text" name="exercise" placeholder="Exercise" required>
             <input type="number" name="sets" placeholder="Sets" required>
@@ -88,9 +85,7 @@
             <input type="number" name="weight" placeholder="Weight (kg)" required>
           </div>
         </div>
-        <!-- Add training button -->
         <button type="button" id="add-exercise-btn">+</button>
-        <!-- Training notes input box -->
         <div class="form-group">
           <label for="notes">Notes:</label>
           <textarea id="notes" name="notes"></textarea>
@@ -98,25 +93,23 @@
       </form>
     </section>
 
-    <!-- Search training records section -->
+    <!-- Workout search function section -->
     <section id="search-workouts">
       <h2>Search your training records</h2>
-      <!-- Date input and search buttons -->
       <div class="date-inputs">
         <input type="date" id="search-date" placeholder="Select date">
         <button type="button" id="search-button">Search</button>
       </div>
     </section>
 
-    <!-- Training history section -->
+    <!-- Workout history function section -->
     <section id="workout-history">
       <h2>Workout History</h2>
-      <!-- Training record list -->
       <div class="workout-records"></div>
     </section>
   </main>
 
-  <!-- Import JavaScript files -->
+  <!-- Include the app.js script -->
   <script src="app.js"></script>
 </body>
 </html>

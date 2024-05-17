@@ -1,22 +1,23 @@
-/* Reset default style */
+/* Reset default styles */
 * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
 }
 
+/* Set body font and background color */
 body {
   font-family: 'Open Sans', sans-serif;
   line-height: 1.6;
   background-color: #f4f4f4;
 }
 
-/* Set title font */
+/* Set heading font */
 h1, h2, h3, h4, h5, h6 {
   font-family: 'Keania One', cursive;
 }
 
-/* Set header style */
+/* Style the header */
 header {
   background-color: #FF3366;
   color: #fff;
@@ -24,28 +25,31 @@ header {
   padding: 1rem;
 }
 
+/* Style the main content */
 main {
   max-width: 1200px;
   margin: 0 auto;
   padding: 2rem;
 }
 
+/* Add some space between sections */
 section {
   margin-bottom: 2rem;
 }
 
+/* Add some space below section headings */
 h2 {
   margin-bottom: 1rem;
 }
 
-/* Set target comparison container style */
+/* Style the goals container */
 .goals-container {
   display: flex;
   flex-direction: column;
   align-items: center;
 }
 
-/* Set target comparison grid style */
+/* Style the goals grid */
 .goals-grid {
   display: grid;
   grid-template-columns: repeat(7, 1fr);
@@ -53,6 +57,25 @@ h2 {
   margin-bottom: 1rem;
 }
 
+/* Style the goal day */
+.goal-day {
+  width: 30px;
+  height: 30px;
+  background-color: #eee;
+  border-radius: 5px;
+}
+
+/* Style the completed goal day */
+.goal-day.completed {
+  background-color: #4caf50;
+}
+
+/* Style the incomplete goal day */
+.goal-day.incomplete {
+  background-color: #ff4d4d;
+}
+
+/* Style the goals labels */
 .goals-labels {
   display: grid;
   grid-template-columns: repeat(7, 1fr);
@@ -62,53 +85,52 @@ h2 {
   text-align: center;
 }
 
+/* Add some space below goals input */
+.goals-input {
+  margin-bottom: 1rem;
+}
+
+/* Style the input wrapper */
 .input-wrapper {
   display: flex;
   align-items: center;
 }
 
+/* Style the input label */
 .input-label {
   margin-left: 0.5rem;
 }
 
-/* Set target day style */
-.goal-day {
-  width: 30px;
-  height: 30px;
-  background-color: #eee;
-  border-radius: 5px;
-}
-
-/* Set a completed goal day style */
-.goal-day.completed {
-  background-color: #4caf50;
-}
-
-/* Set Unfinished Goal Day Style */
-.goal-day.incomplete {
-  background-color: #ff4d4d;
-}
-
-.goals-input {
-  margin-bottom: 1rem;
-}
-
-/* Set target message style */
+/* Style the goals message */
 .goals-message {
   font-weight: bold;
   text-align: center;
 }
 
+/* Add some space below stats section */
+#stats {
+  margin-bottom: 2rem;
+}
+
+/* Style the chart container */
+.chart-container {
+  width: 100%;
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+/* Add some space below form groups */
 .form-group {
   margin-bottom: 1rem;
 }
 
+/* Style form labels */
 label {
   display: block;
   margin-bottom: 0.5rem;
 }
 
-/* Set form input box style */
+/* Style form inputs */
 input[type="text"],
 input[type="date"],
 input[type="number"],
@@ -121,26 +143,29 @@ textarea {
   border-radius: 5px;
 }
 
-/* Set the date format of the date input box */
+/* Style date input fields wrapper */
 input[type="date"]::-webkit-datetime-edit-fields-wrapper {
   display: flex;
 }
 
+/* Style date input separator */
 input[type="date"]::-webkit-datetime-edit-day-field:after,
 input[type="date"]::-webkit-datetime-edit-month-field:after {
   content: '/';
   padding: 0 2px;
 }
 
+/* Remove separator after year field */
 input[type="date"]::-webkit-datetime-edit-year-field:after {
   content: '';
 }
 
+/* Add some space below exercise list */
 .exercise-list {
   margin-bottom: 1rem;
 }
 
-/* Set training item row style */
+/* Style exercise row */
 .exercise-row {
   display: flex;
   gap: 0.5rem;
@@ -151,7 +176,7 @@ input[type="date"]::-webkit-datetime-edit-year-field:after {
   flex: 1;
 }
 
-/* Set button style */
+/* Style buttons */
 button {
   padding: 0.5rem 1rem;
   font-size: 1rem;
@@ -162,11 +187,12 @@ button {
   border-radius: 5px;
 }
 
-/* Set delete button style */
+/* Style delete button */
 .delete-button {
   background-color: #ff4d4d;
 }
 
+/* Style date inputs */
 .date-inputs {
   display: flex;
   gap: 0.5rem;
@@ -177,7 +203,7 @@ button {
   flex: 1;
 }
 
-/* Set training record style */
+/* Style workout record */
 .workout-record {
   background-color: #fff;
   padding: 1rem;
@@ -186,7 +212,7 @@ button {
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
 }
 
-/* Media queries for responsive design */
+/* Mobile settings */
 @media screen and (max-width: 768px) {
   .exercise-row {
     flex-direction: column;
